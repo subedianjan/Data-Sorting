@@ -1,4 +1,4 @@
-""" The program sorts 50 randomly generated numbers with different values
+""" This program sorts 50 randomly generated numbers with different values
 in different colums in csv file. Uses Zip to transpose rows to columns """
 
 import random
