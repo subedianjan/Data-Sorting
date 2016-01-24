@@ -1,0 +1,57 @@
+""" The program sorts 50 randomly generated numbers with different values
+in different colums in csv file. Uses Zip to transpose rows to columns """
+
+import random
+import csv
+""" create a list of 1000 float numbers """
+rand_fnum = []
+for i in range(50):
+    rand_fnum.append ( round( random.uniform(1,50),2) ) #TWO DECIMAL places
+
+print rand_fnum
+""" write the numbers generated to a file"""
+
+with open("num_file.txt", 'w') as t_file:
+    for num in rand_fnum:
+        t_file.write(str(num) + ', ')
+        
+
+""" declare lists to store numbers"""
+
+l1=[None]*20
+l1[0] = " 0 - 10"
+l2=[None]*20
+l2[0] = " 10 - 20"
+l3=[None]*20
+l3[0] = " 20 - 30"
+l4=[None]*20
+l4[0] = " 30 - 40"
+l5=[None]*20
+l5[0] = " 40 - 50"
+# if you don't declare None, it will not Zip with empty content, while it will zip will None later
+
+""" read the numbers from the file. then sortt if accroding to its value
+print the sorted number in csv file """
+
+with open("num_file.txt", "r") as ipfile:
+    reader = csv.reader(ipfile)  
+    for rec in reader:
+      for i in range(len(rec)):
+        if rec[i] == ' ':  #ignore the space char. It is not a number
+         break
+        if float(rec[i]) < 10:           
+         l1.insert(1,rec[i])
+        if float(rec[i]) > 10 and float(rec[i]) <=20:
+         l2.insert(1,rec[i])      
+        if float(rec[i]) > 20 and float(rec[i]) <=30:
+         l3.insert(1,rec[i])
+        if float(rec[i]) > 30 and float(rec[i]) <=40:
+         l4.insert(1,rec[i])
+        if float(rec[i]) > 40 and float(rec[i]) <=50:
+         l5.insert(1,rec[i])
+           
+zl = zip(l1,l2,l3,l4,l5)
+with open("op1.csv", "wb") as opfile:
+  writer = ( csv.writer(opfile))
+  for num in zl:
+    writer.writerow(num)
